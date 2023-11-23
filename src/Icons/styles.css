@@ -1,7 +1,31 @@
 .main {
+  flex: 1;
   display: flex;
   flex-direction: column;
   background: #FFF;
+}
+
+.input_field {
+  display: flex;
+  align-items: center;
+  height: 50px !important;
+  /* width: 100%; */
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid #0099cc;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+
+.input {
+  height: calc(100% - 4px);
+  height: 50px;
+  width: 100%;
+  background: transparent;
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  border: none;
+  margin: 0 1px 0 10px;
+  outline: none;
 }
 
 .grid_container {
