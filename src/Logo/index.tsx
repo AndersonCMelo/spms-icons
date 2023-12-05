@@ -52,7 +52,7 @@ export const Logo: React.FC = () => {
     
     document.body.removeChild(input);
   }
-  
+
   return (
     <div className="main">
       <div className="grid_container">
