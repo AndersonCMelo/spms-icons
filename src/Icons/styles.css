@@ -2,6 +2,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   background: #FFF;
 }
 
@@ -9,7 +10,7 @@
   display: flex;
   align-items: center;
   height: 50px !important;
-  /* width: 100%; */
+  width: 100%;
   flex: 1;
   border-radius: 8px;
   border: 1px solid #0099cc;
@@ -33,6 +34,14 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 10px;
   align-items: baseline;
+  width: 100%;
+}
+
+.category {
+  border: 1px solid #0099CC;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+  border-radius: 0 6px 6px 6px;
 }
 
 .grid_container_logo {
@@ -46,6 +55,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #FFF;
+  padding: 0;
+  margin: 0;
+}
+
+.subtitle {
+  display: inline-block;
+  background-color: #0099CC;
+  padding: 10px 20px;
+  border-radius: 6px 6px 0 0;
 }
 
 .grid_content span {

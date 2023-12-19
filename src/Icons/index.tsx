@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './styles.css'
 
-import { SPMSIcon } from '@spms/react-icons'
+import { SPMSIcon, iconsList } from '@spms/react-icons'
 import { FaReact, FaAngular } from 'react-icons/fa';
 
 interface IconsListProps {
   name: string
+  category: string
   tags: string[]
 }
 
@@ -14,950 +15,17 @@ interface IconsListProps {
 
 export const Icons: React.FC = () => {
   const [modalIsOpened, setModalIsOpened] = useState(false)
-  const iconsList: IconsListProps[] = [
-    { name: "administration", tags: ["administration", "administração"] },
-    { name: "arrow-down", tags: ["arrow-down", "seta", "flecha", "baixo"] },
-    { name: "arrow-up", tags: ["arrow-up", "seta", "flecha", "cima"] },
-    { name: "arrow-left", tags: ["arrow-left", "seta", "flecha", "esquerda"] },
-    { name: "arrow-right", tags: ["arrow-right", "seta", "flecha", "direita"] },
-    { name: "circle", tags: ["circle", "círculo"] },
-    { name: "circle-outlined", tags: ["circle-outlined", "círculo"] },
-    { name: "power", tags: ["power", "botão", "ligar", "desligar"] },
-    { name: "settings", tags: ["settings", "configurações"] },
-    { name: "copy-to-clipboard", tags: ["copy-to-clipboard", "copiar", "copiar para área de transferência"] },
-    { name: "copied-to-clipboard", tags: ["copied-to-clipboard", "copiado", "copiado para área de transferência"] },
-    { name: "react", tags: ["react"] },
-    { name: "angular", tags: ["angular"] },
-    { name: "api", tags: ["api"] },
-    { name: "code", tags: ["code", "código"] },
-    { name: "hamburger", tags: ["hamburger", "hamburguer"] },
-    { name: "documents-outlined", tags: ["documents-outlined", "documentos"] },
-    { name: "users", tags: ["users", "usuários"] },
-    { name: "users-outlined", tags: ["users-outlined", "usuários"] },
-    { name: "consult", tags: ["consult", "consulta"] },
-    { name: "consult-outlined", tags: ["consult-outlined", "consulta"] },
-    { name: "photography", tags: ["photography", "fotografia"] },
-    { name: "photography-outlined", tags: ["photography-outlined", "fotografia"] },
-    { name: "information", tags: ["information", "informação"] },
-    { name: "information-outlined", tags: ["information-outlined", "informação"] },
-    { name: "filters", tags: ["filters", "filtros", "filtrar"] },
-    { name: "filters-outlined", tags: ["filters-outlined", "filtros", "filtrar"] },
-    { name: "more", tags: ["more", "mais"] },
-    { name: "more-outlined", tags: ["more-outlined", "mais"] },
-    { name: "waiting-list", tags: ["waiting-list", "lista de espera"] },
-    { name: "waiting-list-outlined", tags: ["waiting-list-outlined", "lista de espera"] },
-    { name: "user", tags: ["user", "usuário"] },
-    { name: "user-outlined", tags: ["user-outlined", "usuário"] },
-    { name: "definitions", tags: ["definitions", "definições", "definição"] },
-    { name: "definitions-outlined", tags: ["definitions-outlined", "definições", "definição"] },
-    { name: "add", tags: ["add", "adicionar", "criar"] },
-    { name: "add-outlined", tags: ["add-outlined", "adicionar", "criar"] },
-    { name: "clinical-notification", tags: ["clinical-notification", "notificação", "clínica"] },
-    { name: "clinical-notification-outlined", tags: ["clinical-notification-outlined", "notificação", "clínica"] },
-    { name: "surgery", tags: ["surgery", "cirurgia", "operação"] },
-    { name: "surgery-outlined", tags: ["surgery-outlined", "cirurgia", "operação"] },
-    { name: "alert", tags: ["alert", "alerta"] },
-    { name: "alert-outlined", tags: ["alert-outlined", "alerta"] },
-    { name: "wrong-document", tags: ["wrong-document", "documento errado"] },
-    { name: "wrong-document-outlined", tags: ["wrong-document-outlined", "documento errado"] },
-    { name: "management", tags: ["management", "gestão", "gerenciamento"] },
-    { name: "management-outlined", tags: ["management-outlined", "gestão", "gerenciamento"] },
-    { name: "enrollment", tags: ["enrollment", "inscrição"] },
-    { name: "enrollment-outlined", tags: ["enrollment-outlined", "inscrição"] },
-    { name: "hours", tags: ["hours", "horas", "tempo"] },
-    { name: "hours-outlined", tags: ["hours-outlined", "horas", "tempo"] },
-    { name: "monitoring", tags: ["monitoring", "motorização", "monitoramento"] },
-    { name: "monitoring-outlined", tags: ["monitoring-outlined", "motorização", "monitoramento"] },
-    { name: "internment", tags: ["internment", "internamento"] },
-    { name: "internment-outlined", tags: ["internment-outlined", "internamento"] },
-    { name: "compare", tags: ["compare", "comparar"] },
-    { name: "compare-outlined", tags: ["compare-outlined", "comparar"] },
-    { name: "administrative-management-outlined", tags: ["administrative-management-outlined", "gestão administrativa"] },
-    { name: "dashboard", tags: ["dashboard", "painel"] },
-    { name: "dashboard-outlined", tags: ["dashboard-outlined", "painel"] },
-    { name: "therapy", tags: ["therapy", "terapia", "terapêutica"] },
-    { name: "therapy-outlined", tags: ["therapy-outlined", "terapia", "terapêutica"] },
-    { name: "listing", tags: ["listing", "listagens", "listar", "listas"] },
-    { name: "listing-outlined", tags: ["listing-outlined", "listagens", "listar", "listas"] },
-    { name: "correspondence", tags: ["correspondence", "correspondência"] },
-    { name: "correspondence-outlined", tags: ["correspondence-outlined", "correspondência"] },
-    { name: "requests", tags: ["requests", "requisições"] },
-    { name: "requests-outlined", tags: ["requests-outlined", "requisições"] },
-    { name: "print", tags: ["print", "imprimir", "impressão"] },
-    { name: "print-outlined", tags: ["print-outlined", "imprimir", "impressão"] },
-    { name: "new-requests", tags: ["new-requests", "novas requisições"] },
-    { name: "new-requests-outlined", tags: ["new-requests-outlined", "novas requisições"] },
-    { name: "contacts-outlined", tags: ["contacts-outlined", "contactos"] },
-    { name: "microphone", tags: ["microphone", "microfone"] },
-    { name: "microphone-outlined", tags: ["microphone-outlined", "microfone"] },
-    { name: "maximize", tags: ["maximize", "aumentar", "maximizar"] },
-    { name: "screen-sharing", tags: ["screen-sharing", "partilha de ecrã", "compartilhamento", "tela"] },
-    { name: "screen-sharing-outlined", tags: ["screen-sharing-outlined", "partilha de ecrã", "compartilhamento", "tela"] },
-    { name: "copy", tags: ["copy", "copiar"] },
-    { name: "copy-outlined", tags: ["copy-outlined", "copiar"] },
-    { name: "send", tags: ["send", "enviar"] },
-    { name: "send-outlined", tags: ["send-outlined", "enviar"] },
-    { name: "sound", tags: ["sound", "som"] },
-    { name: "sound-outlined", tags: ["sound-outlined", "som"] },
-    { name: "chat", tags: ["chat", "conversa", "bate papo"] },
-    { name: "chat-outlined", tags: ["chat-outlined", "conversa", "bate papo"] },
-    { name: "video", tags: ["video"] },
-    { name: "video-outlined", tags: ["video-outlined"] },
-    { name: "systems", tags: ["systems", "sistemas"] },
-    { name: "systems-outlined", tags: ["systems-outlined", "sistemas"] },
-    { name: "create-report", tags: ["create-report", "criar relatório"] },
-    { name: "create-report-outlined", tags: ["create-report-outlined", "criar relatório"] },
-    { name: "administrator", tags: ["administrator", "administração", "administrador"] },
-    { name: "administrator-outlined", tags: ["administrator-outlined", "administração", "administrador"] },
-    { name: "obesity", tags: ["obesity", "obesidade"] },
-    { name: "obesity-outlined", tags: ["obesity-outlined", "obesidade"] },
-    { name: "renal-insufficiency", tags: ["renal-insufficiency", "insuficiência renal", "rins"] },
-    { name: "renal-insufficiency-outlined", tags: ["renal-insufficiency-outlined", "insuficiência renal", "rins"] },
-    { name: "view-card", tags: ["view-card", "vista card", "cartão", "ver"] },
-    { name: "view-card-outlined", tags: ["view-card-outlined", "vista card", "cartão", "ver"] },
-    { name: "identification", tags: ["identification", "identificação", "identidade"] },
-    { name: "identification-outlined", tags: ["identification-outlined", "identificação", "identidade"] },
-    { name: "home", tags: ["home", "início", "casa"] },
-    { name: "home-outlined", tags: ["home-outlined", "início", "casa"] },
-    { name: "health-units", tags: ["health-units", "unidades de saúde"] },
-    { name: "health-units-outlined", tags: ["health-units-outlined", "unidades de saúde"] },
-    { name: "infection", tags: ["infection", "infecção"] },
-    { name: "infection-outlined", tags: ["infection-outlined", "infecção"] },
-    { name: "event-management", tags: ["event-management", "gestão de eventos"] },
-    { name: "event-management-outlined", tags: ["event-management-outlined", "gestão de eventos"] },
-    { name: "chronic-measurement", tags: ["chronic-measurement", "medicação crónica", "medication"] },
-    { name: "chronic-measurement-outlined", tags: ["chronic-measurement-outlined", "medicação crónica", "medication"] },
-    { name: "nutrition", tags: ["nutrition", "nutrição"] },
-    { name: "nutrition-outlined", tags: ["nutrition-outlined", "nutrição"] },
-    { name: "community", tags: ["community", "comunidade"] },
-    { name: "community-outlined", tags: ["community-outlined", "comunidade"] },
-    { name: "subsystems", tags: ["subsystems", "subsistemas"] },
-    { name: "subsystems-outlined", tags: ["subsystems-outlined", "subsistemas"] },
-    { name: "main-registration", tags: ["main-registration", "registo principal", "registro principal"] },
-    { name: "main-registration-outlined", tags: ["main-registration-outlined", "registo principal", "registro principal"] },
-    { name: "duplicate-registration", tags: ["duplicate-registration", "registo duplicado", "registro duplicado"] },
-    { name: "duplicate-registration-outlined", tags: ["duplicate-registration-outlined", "registo duplicado", "registro duplicado"] },
-    { name: "urgency", tags: ["urgency", "urgência"] },
-    { name: "urgency-outlined", tags: ["urgency-outlined", "urgência"] },
-    { name: "scales", tags: ["scales", "escalas"] },
-    { name: "scales-outlined", tags: ["scales-outlined", "escalas"] },
-    { name: "rates", tags: ["rates", "taxas"] },
-    { name: "rates-outlined", tags: ["rates-outlined", "taxas"] },
-    { name: "edit", tags: ["edit", "editar"] },
-    { name: "edit-outlined", tags: ["edit-outlined", "editar"] },
-    { name: "clinical-registration", tags: ["clinical-registration", "registo clínico", "registro clínico"] },
-    { name: "clinical-registration-outlined", tags: ["clinical-registration-outlined", "registo clínico", "registro clínico"] },
-    { name: "registration", tags: ["registration", "registro", "registo"] },
-    { name: "registration-outlined", tags: ["registration-outlined", "registro", "registo"] },
-    //
-    { name: "daily", tags: ["daily"] },
-    { name: "daily-outlined", tags: ["daily-outlined"] },
-    { name: "database", tags: ["database"] },
-    { name: "database-outlined", tags: ["database-outlined"] },
-    { name: "backend", tags: ["backend"] },
-    { name: "backend-outlined", tags: ["backend-outlined"] },
-    { name: "frontend", tags: ["frontend"] },
-    { name: "frontend-outlined", tags: ["frontend-outlined"] },
-    { name: "waiting-room", tags: ["waiting-room"] },
-    { name: "waiting-room-outlined", tags: ["waiting-room-outlined"] },
-    { name: "versioning", tags: ["versioning"] },
-    { name: "versioning-outlined", tags: ["versioning-outlined"] },
-    { name: "authentication", tags: ["authentication"] },
-    { name: "authentication-outlined", tags: ["authentication-outlined"] },
-    { name: "attach", tags: ["attach"] },
-    { name: "attach-outlined", tags: ["attach-outlined"] },
-    { name: "pathology", tags: ["pathology"] },
-    { name: "pathology-outlined", tags: ["pathology-outlined"] },
-    { name: "diagnosis", tags: ["diagnosis"] },
-    { name: "diagnosis-outlined", tags: ["diagnosis-outlined"] },
-    { name: "doctor", tags: ["doctor"] },
-    { name: "doctor-outlined", tags: ["doctor-outlined"] },
-    { name: "download", tags: ["download"] },
-    { name: "request-declined", tags: ["request-declined"] },
-    { name: "request-declined-outlined", tags: ["request-declined-outlined"] },
-    { name: "logout", tags: ["logout"] },
-    { name: "logout-outlined", tags: ["logout-outlined"] },
-    { name: "external-reference", tags: ["external-reference"] },
-    { name: "external-reference-outlined", tags: ["external-reference-outlined"] },
-    { name: "internal-reference", tags: ["internal-reference"] },
-    { name: "internal-reference-outlined", tags: ["internal-reference-outlined"] },
-    { name: "medical-high-news", tags: ["medical-high-news"] },
-    { name: "medical-high-news-outlined", tags: ["medical-high-news-outlined"] },
-    { name: "results", tags: ["results"] },
-    { name: "results-outlined", tags: ["results-outlined"] },
-    { name: "household", tags: ["household"] },
-    { name: "household-outlined", tags: ["household-outlined"] },
-    { name: "do-not-smoke", tags: ["do-not-smoke"] },
-    { name: "do-not-smoke-outlined", tags: ["do-not-smoke-outlined"] },
-    { name: "birth-news", tags: ["birth-news"] },
-    { name: "birth-news-outlined", tags: ["birth-news-outlined"] },
-    { name: "references", tags: ["references"] },
-    { name: "references-outlined", tags: ["references-outlined"] },
-    { name: "search-user", tags: ["search-user"] },
-    { name: "search-user-outlined", tags: ["search-user-outlined"] },
-    { name: "esclerosis-multiple", tags: ["esclerosis-multiple"] },
-    { name: "esclerosis-multiple-outlined", tags: ["esclerosis-multiple-outlined"] },
-    { name: "ordination", tags: ["ordination"] },
-    { name: "view-line", tags: ["view-line"] },
-    { name: "view-line-outlined", tags: ["view-line-outlined"] },
-    { name: "health-program", tags: ["health-program"] },
-    { name: "health-program-outlined", tags: ["health-program-outlined"] },
-    { name: "close", tags: ["close"] },
-    { name: "reload", tags: ["reload"] },
-    { name: "clinical-procedure", tags: ["clinical-procedure"] },
-    { name: "clinical-procedure-outlined", tags: ["clinical-procedure-outlined"] },
-    { name: "correct", tags: ["correct"] },
-    { name: "resources", tags: ["resources"] },
-    { name: "resources-outlined", tags: ["resources-outlined"] },
-    { name: "search", tags: ["search"] },
-    { name: "calendar", tags: ["calendar"] },
-    { name: "calendar-outlined", tags: ["calendar-outlined"] },
-    { name: "unchecked", tags: ["unchecked"] },
-    { name: "unchecked-outlined", tags: ["unchecked-outlined"] },
-    { name: "vacancies", tags: ["vacancies"] },
-    { name: "view-bar-chart", tags: ["view-bar-chart"] },
-    { name: "view-bar-chart-outlined", tags: ["view-bar-chart-outlined"] },
-    { name: "view-3-column-chart", tags: ["view-3-column-chart"] },
-    { name: "view-3-column-chart-outlined", tags: ["view-3-column-chart-outlined"] },
-    { name: "start", tags: ["start"] },
-    { name: "custom-components", tags: ["custom-components"] },
-    { name: "components", tags: ["components"] },
-    { name: "customizations", tags: ["customizations"] },
-    { name: "icons", tags: ["icons"] },
-    { name: "wireframes", tags: ["wireframes"] },
-    { name: "migration", tags: ["migration"] },
-    { name: "accessibility", tags: ["accessibility"] },
-    { name: "ticket-icon", tags: ["ticket-icon"] },
-    { name: "trash-outlined", tags: ["trash-outlined"] },
-    { name: "save", tags: ["save"] },
-    { name: "clear", tags: ["clear"] },
-    { name: "clear-outlined", tags: ["clear-outlined"] },
-    { name: "allergies-outlined", tags: ["allergies-outlined"] },
-    { name: "tnf-outlined", tags: ["tnf-outlined"] },
-    { name: "sgtd", tags: ["sgtd"] },
-    { name: "precedents-outlined", tags: ["precedents-outlined"] },
-    { name: "ophthalmology-outlined", tags: ["ophthalmology-outlined"] },
-    { name: "clinical-process-outlined", tags: ["clinical-process-outlined"] },
-    { name: "mcdt-management-outlined", tags: ["mcdt-management-outlined"] },
-    { name: "bed-management-outlined", tags: ["bed-management-outlined"] },
-    { name: "social-services-outlined", tags: ["social-services-outlined"] },
-    { name: "emergency-outlined", tags: ["emergency-outlined"] },
-    { name: "very-urgent-outlined", tags: ["very-urgent-outlined"] },
-    { name: "urgent-outlined", tags: ["urgent-outlined"] },
-    { name: "little-urgent-outlined", tags: ["little-urgent-outlined"] },
-    { name: "not-urgent-outlined", tags: ["not-urgent-outlined"] },
-    { name: "viewed-outlined", tags: ["viewed-outlined"] },
-    { name: "graphic-outlined", tags: ["graphic-outlined"] },
-    { name: "euro", tags: ["euro"] },
-    { name: "remove-outlined", tags: ["remove-outlined"] },
-    { name: "lactose-free-yogurt", tags: ["lactose-free-yogurt"] },
-    { name: "lactose-free-milk", tags: ["lactose-free-milk"] },
-    { name: "vegetables-soup", tags: ["vegetables-soup"] },
-    { name: "breakfast", tags: ["breakfast"] },
-    { name: "snack", tags: ["snack"] },
-    { name: "lunch", tags: ["lunch"] },
-    { name: "dinner", tags: ["dinner"] },
-    { name: "supper", tags: ["supper"] },
-    { name: "diet", tags: ["diet"] },
-    { name: "meat-dish", tags: ["meat-dish"] },
-    { name: "fruit", tags: ["fruit"] },
-    { name: "meal", tags: ["meal"] },
-    { name: "suplements", tags: ["suplements"] },
-    { name: "fish-soup", tags: ["fish-soup"] },
-    { name: "gelatin", tags: ["gelatin"] },
-    { name: "bread", tags: ["bread"] },
-    { name: "oat-meal", tags: ["oat-meal"] },
-    { name: "chicken-soup", tags: ["chicken-soup"] },
-    { name: "kits", tags: ["kits"] },
-    { name: "diet-parameters", tags: ["diet-parameters"] },
-    { name: "lactose-free", tags: ["lactose-free"] },
-    { name: "gluten-free", tags: ["gluten-free"] },
-    { name: "hyperenergetic", tags: ["hyperenergetic"] },
-    { name: "salt-free", tags: ["salt-free"] },
-    { name: "sugar-free", tags: ["sugar-free"] },
-    { name: "low-microbial-content", tags: ["low-microbial-content"] },
-    { name: "potassium-restricted", tags: ["potassium-restricted"] },
-    { name: "phosphorus-restricted", tags: ["phosphorus-restricted"] },
-    { name: "scullery", tags: ["scullery"] },
-    { name: "automatic-cancellation", tags: ["automatic-cancellation"] },
-    { name: "bpm", tags: ["bpm"] },
-    { name: "mmhg", tags: ["mmhg"] },
-    { name: "degrees", tags: ["degrees"] },
-    { name: "rpm", tags: ["rpm"] },
-    { name: "sp02", tags: ["sp02"] },
-    { name: "cereals", tags: ["cereals"] },
-    { name: "cereals-colors", tags: ["cereals-colors"] },
-    { name: "crustaceans", tags: ["crustaceans"] },
-    { name: "crustaceans-colors", tags: ["crustaceans-colors"] },
-    { name: "eggs", tags: ["eggs"] },
-    { name: "eggs-colors", tags: ["eggs-colors"] },
-    { name: "fish", tags: ["fish"] },
-    { name: "fish-colors", tags: ["fish-colors"] },
-    { name: "peanuts", tags: ["peanuts"] },
-    { name: "peanuts-colors", tags: ["peanuts-colors"] },
-    { name: "soy", tags: ["soy"] },
-    { name: "soy-colors", tags: ["soy-colors"] },
-    { name: "milk", tags: ["milk"] },
-    { name: "milk-colors", tags: ["milk-colors"] },
-    { name: "sesame-seeds", tags: ["sesame-seeds"] },
-    { name: "sesame-seeds-colors", tags: ["sesame-seeds-colors"] },
-    { name: "celery", tags: ["celery"] },
-    { name: "celery-colors", tags: ["celery-colors"] },
-    { name: "mustard", tags: ["mustard"] },
-    { name: "mustard-colors", tags: ["mustard-colors"] },
-    { name: "strawberry", tags: ["strawberry"] },
-    { name: "strawberry-colors", tags: ["strawberry-colors"] },
-    { name: "sulfur-dioxide", tags: ["sulfur-dioxide"] },
-    { name: "sulfur-dioxide-colors", tags: ["sulfur-dioxide-colors"] },
-    { name: "lupins", tags: ["lupins"] },
-    { name: "lupins-colors", tags: ["lupins-colors"] },
-    { name: "molluscs", tags: ["molluscs"] },
-    { name: "molluscs-colors", tags: ["molluscs-colors"] },
-    { name: "nuts", tags: ["nuts"] },
-    { name: "nuts-colors", tags: ["nuts-colors"] },
-    { name: "hypoproteic", tags: ["hypoproteic"] },
-    { name: "low-energy-diet", tags: ["low-energy-diet"] },
-    { name: "low-fiber-diet", tags: ["low-fiber-diet"] },
-    { name: "video-on-circle", tags: ["video-on-circle"] },
-    { name: "video-off-circle", tags: ["video-off-circle"] },
-    { name: "sound-on-circle", tags: ["sound-on-circle"] },
-    { name: "sound-off-circle", tags: ["sound-off-circle"] },
-    { name: "microphone-on-circle", tags: ["microphone-on-circle"] },
-    { name: "microphone-off-circle", tags: ["microphone-off-circle"] },
-    { name: "chat-on-circle", tags: ["chat-on-circle"] },
-    { name: "chat-off-circle", tags: ["chat-off-circle"] },
-  ]
-  const [visibleIconsList, setVisibleIconsList] = useState<IconsListProps[]>([
-    { name: "administration", tags: ["administration", "administração"] },
-    { name: "arrow-down", tags: ["arrow-down", "seta", "flecha", "baixo"] },
-    { name: "arrow-up", tags: ["arrow-up", "seta", "flecha", "cima"] },
-    { name: "arrow-left", tags: ["arrow-left", "seta", "flecha", "esquerda"] },
-    { name: "arrow-right", tags: ["arrow-right", "seta", "flecha", "direita"] },
-    { name: "circle", tags: ["circle", "círculo"] },
-    { name: "circle-outlined", tags: ["circle-outlined", "círculo"] },
-    { name: "power", tags: ["power", "botão", "ligar", "desligar"] },
-    { name: "settings", tags: ["settings", "configurações"] },
-    { name: "copy-to-clipboard", tags: ["copy-to-clipboard", "copiar", "copiar para área de transferência"] },
-    { name: "copied-to-clipboard", tags: ["copied-to-clipboard", "copiado", "copiado para área de transferência"] },
-    { name: "react", tags: ["react"] },
-    { name: "angular", tags: ["angular"] },
-    { name: "api", tags: ["api"] },
-    { name: "code", tags: ["code", "código"] },
-    { name: "hamburger", tags: ["hamburger", "hamburguer"] },
-    { name: "documents-outlined", tags: ["documents-outlined", "documentos"] },
-    { name: "users", tags: ["users", "usuários"] },
-    { name: "users-outlined", tags: ["users-outlined", "usuários"] },
-    { name: "consult", tags: ["consult", "consulta"] },
-    { name: "consult-outlined", tags: ["consult-outlined", "consulta"] },
-    { name: "photography", tags: ["photography", "fotografia"] },
-    { name: "photography-outlined", tags: ["photography-outlined", "fotografia"] },
-    { name: "information", tags: ["information", "informação"] },
-    { name: "information-outlined", tags: ["information-outlined", "informação"] },
-    { name: "filters", tags: ["filters", "filtros", "filtrar"] },
-    { name: "filters-outlined", tags: ["filters-outlined", "filtros", "filtrar"] },
-    { name: "more", tags: ["more", "mais"] },
-    { name: "more-outlined", tags: ["more-outlined", "mais"] },
-    { name: "waiting-list", tags: ["waiting-list", "lista de espera"] },
-    { name: "waiting-list-outlined", tags: ["waiting-list-outlined", "lista de espera"] },
-    { name: "user", tags: ["user", "usuário"] },
-    { name: "user-outlined", tags: ["user-outlined", "usuário"] },
-    //
-    { name: "definitions", tags: ["definitions"] },
-    { name: "definitions-outlined", tags: ["definitions-outlined"] },
-    { name: "add", tags: ["add"] },
-    { name: "add-outlined", tags: ["add-outlined"] },
-    { name: "clinical-notification", tags: ["clinical-notification"] },
-    { name: "clinical-notification-outlined", tags: ["clinical-notification-outlined"] },
-    { name: "surgery", tags: ["surgery"] },
-    { name: "surgery-outlined", tags: ["surgery-outlined"] },
-    { name: "alert", tags: ["alert"] },
-    { name: "alert-outlined", tags: ["alert-outlined"] },
-    { name: "wrong-document", tags: ["wrong-document"] },
-    { name: "wrong-document-outlined", tags: ["wrong-document-outlined"] },
-    { name: "management", tags: ["management"] },
-    { name: "management-outlined", tags: ["management-outlined"] },
-    { name: "enrollment", tags: ["enrollment"] },
-    { name: "enrollment-outlined", tags: ["enrollment-outlined"] },
-    { name: "hours", tags: ["hours"] },
-    { name: "hours-outlined", tags: ["hours-outlined"] },
-    { name: "monitoring", tags: ["monitoring"] },
-    { name: "monitoring-outlined", tags: ["monitoring-outlined"] },
-    { name: "internment", tags: ["internment"] },
-    { name: "internment-outlined", tags: ["internment-outlined"] },
-    { name: "compare", tags: ["compare"] },
-    { name: "compare-outlined", tags: ["compare-outlined"] },
-    { name: "administrative-management-outlined", tags: ["administrative-management-outlined"] },
-    { name: "dashboard", tags: ["dashboard"] },
-    { name: "dashboard-outlined", tags: ["dashboard-outlined"] },
-    { name: "therapy", tags: ["therapy"] },
-    { name: "therapy-outlined", tags: ["therapy-outlined"] },
-    { name: "listing", tags: ["listing"] },
-    { name: "listing-outlined", tags: ["listing-outlined"] },
-    { name: "correspondence", tags: ["correspondence"] },
-    { name: "correspondence-outlined", tags: ["correspondence-outlined"] },
-    { name: "requests", tags: ["requests"] },
-    { name: "requests-outlined", tags: ["requests-outlined"] },
-    { name: "print", tags: ["print"] },
-    { name: "print-outlined", tags: ["print-outlined"] },
-    { name: "new-requests", tags: ["new-requests"] },
-    { name: "new-requests-outlined", tags: ["new-requests-outlined"] },
-    { name: "contacts-outlined", tags: ["contacts-outlined"] },
-    { name: "microphone", tags: ["microphone"] },
-    { name: "microphone-outlined", tags: ["microphone-outlined"] },
-    { name: "maximize", tags: ["maximize"] },
-    { name: "screen-sharing", tags: ["screen-sharing"] },
-    { name: "screen-sharing-outlined", tags: ["screen-sharing-outlined"] },
-    { name: "copy", tags: ["copy"] },
-    { name: "copy-outlined", tags: ["copy-outlined"] },
-    { name: "send", tags: ["send"] },
-    { name: "send-outlined", tags: ["send-outlined"] },
-    { name: "sound", tags: ["sound"] },
-    { name: "sound-outlined", tags: ["sound-outlined"] },
-    { name: "chat", tags: ["chat"] },
-    { name: "chat-outlined", tags: ["chat-outlined"] },
-    { name: "video", tags: ["video"] },
-    { name: "video-outlined", tags: ["video-outlined"] },
-    { name: "systems", tags: ["systems"] },
-    { name: "systems-outlined", tags: ["systems-outlined"] },
-    { name: "create-report", tags: ["create-report"] },
-    { name: "create-report-outlined", tags: ["create-report-outlined"] },
-    { name: "administrator", tags: ["administrator"] },
-    { name: "administrator-outlined", tags: ["administrator-outlined"] },
-    { name: "obesity", tags: ["obesity"] },
-    { name: "obesity-outlined", tags: ["obesity-outlined"] },
-    { name: "renal-insufficiency", tags: ["renal-insufficiency"] },
-    { name: "renal-insufficiency-outlined", tags: ["renal-insufficiency-outlined"] },
-    { name: "view-card", tags: ["view-card"] },
-    { name: "view-card-outlined", tags: ["view-card-outlined"] },
-    { name: "identification", tags: ["identification"] },
-    { name: "identification-outlined", tags: ["identification-outlined"] },
-    { name: "home", tags: ["home"] },
-    { name: "home-outlined", tags: ["home-outlined"] },
-    { name: "health-units", tags: ["health-units"] },
-    { name: "health-units-outlined", tags: ["health-units-outlined"] },
-    { name: "infection", tags: ["infection"] },
-    { name: "infection-outlined", tags: ["infection-outlined"] },
-    { name: "event-management", tags: ["event-management"] },
-    { name: "event-management-outlined", tags: ["event-management-outlined"] },
-    { name: "chronic-measurement", tags: ["chronic-measurement"] },
-    { name: "chronic-measurement-outlined", tags: ["chronic-measurement-outlined"] },
-    { name: "nutrition", tags: ["nutrition"] },
-    { name: "nutrition-outlined", tags: ["nutrition-outlined"] },
-    { name: "community", tags: ["community"] },
-    { name: "community-outlined", tags: ["community-outlined"] },
-    { name: "subsystems", tags: ["subsystems"] },
-    { name: "subsystems-outlined", tags: ["subsystems-outlined"] },
-    { name: "main-registration", tags: ["main-registration"] },
-    { name: "main-registration-outlined", tags: ["main-registration-outlined"] },
-    { name: "duplicate-registration", tags: ["duplicate-registration"] },
-    { name: "duplicate-registration-outlined", tags: ["duplicate-registration-outlined"] },
-    { name: "urgency", tags: ["urgency"] },
-    { name: "urgency-outlined", tags: ["urgency-outlined"] },
-    { name: "scales", tags: ["scales"] },
-    { name: "scales-outlined", tags: ["scales-outlined"] },
-    { name: "rates", tags: ["rates"] },
-    { name: "rates-outlined", tags: ["rates-outlined"] },
-    { name: "edit", tags: ["edit"] },
-    { name: "edit-outlined", tags: ["edit-outlined"] },
-    { name: "clinical-registration", tags: ["clinical-registration"] },
-    { name: "clinical-registration-outlined", tags: ["clinical-registration-outlined"] },
-    { name: "registration", tags: ["registration"] },
-    { name: "registration-outlined", tags: ["registration-outlined"] },
-    { name: "daily", tags: ["daily"] },
-    { name: "daily-outlined", tags: ["daily-outlined"] },
-    { name: "database", tags: ["database"] },
-    { name: "database-outlined", tags: ["database-outlined"] },
-    { name: "backend", tags: ["backend"] },
-    { name: "backend-outlined", tags: ["backend-outlined"] },
-    { name: "frontend", tags: ["frontend"] },
-    { name: "frontend-outlined", tags: ["frontend-outlined"] },
-    { name: "waiting-room", tags: ["waiting-room"] },
-    { name: "waiting-room-outlined", tags: ["waiting-room-outlined"] },
-    { name: "versioning", tags: ["versioning"] },
-    { name: "versioning-outlined", tags: ["versioning-outlined"] },
-    { name: "authentication", tags: ["authentication"] },
-    { name: "authentication-outlined", tags: ["authentication-outlined"] },
-    { name: "attach", tags: ["attach"] },
-    { name: "attach-outlined", tags: ["attach-outlined"] },
-    { name: "pathology", tags: ["pathology"] },
-    { name: "pathology-outlined", tags: ["pathology-outlined"] },
-    { name: "diagnosis", tags: ["diagnosis"] },
-    { name: "diagnosis-outlined", tags: ["diagnosis-outlined"] },
-    { name: "doctor", tags: ["doctor"] },
-    { name: "doctor-outlined", tags: ["doctor-outlined"] },
-    { name: "download", tags: ["download"] },
-    { name: "request-declined", tags: ["request-declined"] },
-    { name: "request-declined-outlined", tags: ["request-declined-outlined"] },
-    { name: "logout", tags: ["logout"] },
-    { name: "logout-outlined", tags: ["logout-outlined"] },
-    { name: "external-reference", tags: ["external-reference"] },
-    { name: "external-reference-outlined", tags: ["external-reference-outlined"] },
-    { name: "internal-reference", tags: ["internal-reference"] },
-    { name: "internal-reference-outlined", tags: ["internal-reference-outlined"] },
-    { name: "medical-high-news", tags: ["medical-high-news"] },
-    { name: "medical-high-news-outlined", tags: ["medical-high-news-outlined"] },
-    { name: "results", tags: ["results"] },
-    { name: "results-outlined", tags: ["results-outlined"] },
-    //
-    { name: "household", tags: ["household"] },
-    { name: "household-outlined", tags: ["household-outlined"] },
-    { name: "do-not-smoke", tags: ["do-not-smoke"] },
-    { name: "do-not-smoke-outlined", tags: ["do-not-smoke-outlined"] },
-    { name: "birth-news", tags: ["birth-news"] },
-    { name: "birth-news-outlined", tags: ["birth-news-outlined"] },
-    { name: "references", tags: ["references"] },
-    { name: "references-outlined", tags: ["references-outlined"] },
-    { name: "search-user", tags: ["search-user"] },
-    { name: "search-user-outlined", tags: ["search-user-outlined"] },
-    { name: "esclerosis-multiple", tags: ["esclerosis-multiple"] },
-    { name: "esclerosis-multiple-outlined", tags: ["esclerosis-multiple-outlined"] },
-    { name: "ordination", tags: ["ordination"] },
-    { name: "view-line", tags: ["view-line"] },
-    { name: "view-line-outlined", tags: ["view-line-outlined"] },
-    { name: "health-program", tags: ["health-program"] },
-    { name: "health-program-outlined", tags: ["health-program-outlined"] },
-    { name: "close", tags: ["close"] },
-    { name: "reload", tags: ["reload"] },
-    { name: "clinical-procedure", tags: ["clinical-procedure"] },
-    { name: "clinical-procedure-outlined", tags: ["clinical-procedure-outlined"] },
-    { name: "correct", tags: ["correct"] },
-    { name: "resources", tags: ["resources"] },
-    { name: "resources-outlined", tags: ["resources-outlined"] },
-    { name: "search", tags: ["search"] },
-    { name: "calendar", tags: ["calendar"] },
-    { name: "calendar-outlined", tags: ["calendar-outlined"] },
-    { name: "unchecked", tags: ["unchecked"] },
-    { name: "unchecked-outlined", tags: ["unchecked-outlined"] },
-    { name: "vacancies", tags: ["vacancies"] },
-    { name: "view-bar-chart", tags: ["view-bar-chart"] },
-    { name: "view-bar-chart-outlined", tags: ["view-bar-chart-outlined"] },
-    { name: "view-3-column-chart", tags: ["view-3-column-chart"] },
-    { name: "view-3-column-chart-outlined", tags: ["view-3-column-chart-outlined"] },
-    { name: "start", tags: ["start"] },
-    { name: "custom-components", tags: ["custom-components"] },
-    { name: "components", tags: ["components"] },
-    { name: "customizations", tags: ["customizations"] },
-    { name: "icons", tags: ["icons"] },
-    { name: "wireframes", tags: ["wireframes"] },
-    { name: "migration", tags: ["migration"] },
-    { name: "accessibility", tags: ["accessibility"] },
-    { name: "ticket-icon", tags: ["ticket-icon"] },
-    { name: "trash-outlined", tags: ["trash-outlined"] },
-    { name: "save", tags: ["save"] },
-    { name: "clear", tags: ["clear"] },
-    { name: "clear-outlined", tags: ["clear-outlined"] },
-    { name: "allergies-outlined", tags: ["allergies-outlined"] },
-    { name: "tnf-outlined", tags: ["tnf-outlined"] },
-    { name: "sgtd", tags: ["sgtd"] },
-    { name: "precedents-outlined", tags: ["precedents-outlined"] },
-    { name: "ophthalmology-outlined", tags: ["ophthalmology-outlined"] },
-    { name: "clinical-process-outlined", tags: ["clinical-process-outlined"] },
-    { name: "mcdt-management-outlined", tags: ["mcdt-management-outlined"] },
-    { name: "bed-management-outlined", tags: ["bed-management-outlined"] },
-    { name: "social-services-outlined", tags: ["social-services-outlined"] },
-    { name: "emergency-outlined", tags: ["emergency-outlined"] },
-    { name: "very-urgent-outlined", tags: ["very-urgent-outlined"] },
-    { name: "urgent-outlined", tags: ["urgent-outlined"] },
-    { name: "little-urgent-outlined", tags: ["little-urgent-outlined"] },
-    { name: "not-urgent-outlined", tags: ["not-urgent-outlined"] },
-    { name: "viewed-outlined", tags: ["viewed-outlined"] },
-    { name: "graphic-outlined", tags: ["graphic-outlined"] },
-    { name: "euro", tags: ["euro"] },
-    { name: "remove-outlined", tags: ["remove-outlined"] },
-    { name: "lactose-free-yogurt", tags: ["lactose-free-yogurt"] },
-    { name: "lactose-free-milk", tags: ["lactose-free-milk"] },
-    { name: "vegetables-soup", tags: ["vegetables-soup"] },
-    { name: "breakfast", tags: ["breakfast"] },
-    { name: "snack", tags: ["snack"] },
-    { name: "lunch", tags: ["lunch"] },
-    { name: "dinner", tags: ["dinner"] },
-    { name: "supper", tags: ["supper"] },
-    { name: "diet", tags: ["diet"] },
-    { name: "meat-dish", tags: ["meat-dish"] },
-    { name: "fruit", tags: ["fruit"] },
-    { name: "meal", tags: ["meal"] },
-    { name: "suplements", tags: ["suplements"] },
-    { name: "fish-soup", tags: ["fish-soup"] },
-    { name: "gelatin", tags: ["gelatin"] },
-    { name: "bread", tags: ["bread"] },
-    { name: "oat-meal", tags: ["oat-meal"] },
-    { name: "chicken-soup", tags: ["chicken-soup"] },
-    { name: "kits", tags: ["kits"] },
-    { name: "diet-parameters", tags: ["diet-parameters"] },
-    { name: "lactose-free", tags: ["lactose-free"] },
-    { name: "gluten-free", tags: ["gluten-free"] },
-    { name: "hyperenergetic", tags: ["hyperenergetic"] },
-    { name: "salt-free", tags: ["salt-free"] },
-    { name: "sugar-free", tags: ["sugar-free"] },
-    { name: "low-microbial-content", tags: ["low-microbial-content"] },
-    { name: "potassium-restricted", tags: ["potassium-restricted"] },
-    { name: "phosphorus-restricted", tags: ["phosphorus-restricted"] },
-    { name: "scullery", tags: ["scullery"] },
-    { name: "automatic-cancellation", tags: ["automatic-cancellation"] },
-    { name: "bpm", tags: ["bpm"] },
-    { name: "mmhg", tags: ["mmhg"] },
-    { name: "degrees", tags: ["degrees"] },
-    { name: "rpm", tags: ["rpm"] },
-    { name: "sp02", tags: ["sp02"] },
-    { name: "cereals", tags: ["cereals"] },
-    { name: "cereals-colors", tags: ["cereals-colors"] },
-    { name: "crustaceans", tags: ["crustaceans"] },
-    { name: "crustaceans-colors", tags: ["crustaceans-colors"] },
-    { name: "eggs", tags: ["eggs"] },
-    { name: "eggs-colors", tags: ["eggs-colors"] },
-    { name: "fish", tags: ["fish"] },
-    { name: "fish-colors", tags: ["fish-colors"] },
-    { name: "peanuts", tags: ["peanuts"] },
-    { name: "peanuts-colors", tags: ["peanuts-colors"] },
-    { name: "soy", tags: ["soy"] },
-    { name: "soy-colors", tags: ["soy-colors"] },
-    { name: "milk", tags: ["milk"] },
-    { name: "milk-colors", tags: ["milk-colors"] },
-    { name: "sesame-seeds", tags: ["sesame-seeds"] },
-    { name: "sesame-seeds-colors", tags: ["sesame-seeds-colors"] },
-    { name: "celery", tags: ["celery"] },
-    { name: "celery-colors", tags: ["celery-colors"] },
-    { name: "mustard", tags: ["mustard"] },
-    { name: "mustard-colors", tags: ["mustard-colors"] },
-    { name: "strawberry", tags: ["strawberry"] },
-    { name: "strawberry-colors", tags: ["strawberry-colors"] },
-    { name: "sulfur-dioxide", tags: ["sulfur-dioxide"] },
-    { name: "sulfur-dioxide-colors", tags: ["sulfur-dioxide-colors"] },
-    { name: "lupins", tags: ["lupins"] },
-    { name: "lupins-colors", tags: ["lupins-colors"] },
-    { name: "molluscs", tags: ["molluscs"] },
-    { name: "molluscs-colors", tags: ["molluscs-colors"] },
-    { name: "nuts", tags: ["nuts"] },
-    { name: "nuts-colors", tags: ["nuts-colors"] },
-    { name: "hypoproteic", tags: ["hypoproteic"] },
-    { name: "low-energy-diet", tags: ["low-energy-diet"] },
-    { name: "low-fiber-diet", tags: ["low-fiber-diet"] },
-    { name: "video-on-circle", tags: ["video-on-circle"] },
-    { name: "video-off-circle", tags: ["video-off-circle"] },
-    { name: "sound-on-circle", tags: ["sound-on-circle"] },
-    { name: "sound-off-circle", tags: ["sound-off-circle"] },
-    { name: "microphone-on-circle", tags: ["microphone-on-circle"] },
-    { name: "microphone-off-circle", tags: ["microphone-off-circle"] },
-    { name: "chat-on-circle", tags: ["chat-on-circle"] },
-    { name: "chat-off-circle", tags: ["chat-off-circle"] },
-  ])
+  const [isFiltered, setIsFiltered] = useState(false)
+  
+  const [visibleIconsList, setVisibleIconsList] = useState<IconsListProps[]>([])
 
   const [selectedIcon, setSelectedIcon] = useState('user')
   const [selectedIconCodeAngular, setSelectedIconCodeAngular] = useState('')
   const [selectedIconCodeReact, setSelectedIconCodeReact] = useState('')
-
-  /* const iconsList = [
-    "administration",
-    "arrow-down",
-    "arrow-up",
-    "arrow-left",
-    "arrow-right",
-    "circle",
-    "circle-outlined",
-    "power",
-    "settings",
-    "copy-to-clipboard",
-    "copied-to-clipboard",
-    "react",
-    "angular",
-    "api",
-    "code",
-    "hamburger",
-    "documents-outlined",
-    "users",
-    "users-outlined",
-    "consult",
-    "consult-outlined",
-    "photography",
-    "photography-outlined",
-    "information",
-    "information-outlined",
-    "filters",
-    "filters-outlined",
-    "more",
-    "more-outlined",
-    "waiting-list",
-    "waiting-list-outlined",
-    "user",
-    "user-outlined",
-    "definitions",
-    "definitions-outlined",
-    "add",
-    "add-outlined",
-    "clinical-notification",
-    "clinical-notification-outlined",
-    "surgery",
-    "surgery-outlined",
-    "alert",
-    "alert-outlined",
-    "wrong-document",
-    "wrong-document-outlined",
-    "management",
-    "management-outlined",
-    "enrollment",
-    "enrollment-outlined",
-    "hours",
-    "hours-outlined",
-    "monitoring",
-    "monitoring-outlined",
-    "internment",
-    "internment-outlined",
-    "compare",
-    "compare-outlined",
-    "administrative-management-outlined",
-    "dashboard",
-    "dashboard-outlined",
-    "therapy",
-    "therapy-outlined",
-    "listing",
-    "listing-outlined",
-    "correspondence",
-    "correspondence-outlined",
-    "requests",
-    "requests-outlined",
-    "print",
-    "print-outlined",
-    "new-requests",
-    "new-requests-outlined",
-    "contacts-outlined",
-    "microphone",
-    "microphone-outlined",
-    "maximize",
-    "screen-sharing",
-    "screen-sharing-outlined",
-    "copy",
-    "copy-outlined",
-    "send",
-    "send-outlined",
-    "sound",
-    "sound-outlined",
-    "chat",
-    "chat-outlined",
-    "video",
-    "video-outlined",
-    "systems",
-    "systems-outlined",
-    "create-report",
-    "create-report-outlined",
-    "administrator",
-    "administrator-outlined",
-    "obesity",
-    "obesity-outlined",
-    "renal-insufficiency",
-    "renal-insufficiency-outlined",
-    "view-card",
-    "view-card-outlined",
-    "identification",
-    "identification-outlined",
-    "home",
-    "home-outlined",
-    "health-units",
-    "health-units-outlined",
-    "infection",
-    "infection-outlined",
-    "event-management",
-    "event-management-outlined",
-    "chronic-measurement",
-    "chronic-measurement-outlined",
-    "nutrition",
-    "nutrition-outlined",
-    "community",
-    "community-outlined",
-    "subsystems",
-    "subsystems-outlined",
-    "main-registration",
-    "main-registration-outlined",
-    "duplicate-registration",
-    "duplicate-registration-outlined",
-    "urgency",
-    "urgency-outlined",
-    "scales",
-    "scales-outlined",
-    "rates",
-    "rates-outlined",
-    "edit",
-    "edit-outlined",
-    "clinical-registration",
-    "clinical-registration-outlined",
-    "registration",
-    "registration-outlined",
-    "daily",
-    "daily-outlined",
-    "database",
-    "database-outlined",
-    "backend",
-    "backend-outlined",
-    "frontend",
-    "frontend-outlined",
-    "waiting-room",
-    "waiting-room-outlined",
-    "versioning",
-    "versioning-outlined",
-    "authentication",
-    "authentication-outlined",
-    "attach",
-    "attach-outlined",
-    "pathology",
-    "pathology-outlined",
-    "diagnosis",
-    "diagnosis-outlined",
-    "doctor",
-    "doctor-outlined",
-    "download",
-    "request-declined",
-    "request-declined-outlined",
-    "logout",
-    "logout-outlined",
-    "external-reference",
-    "external-reference-outlined",
-    "internal-reference",
-    "internal-reference-outlined",
-    "medical-high-news",
-    "medical-high-news-outlined",
-    "results",
-    "results-outlined",
-    "household",
-    "household-outlined",
-    "do-not-smoke",
-    "do-not-smoke-outlined",
-    "birth-news",
-    "birth-news-outlined",
-    "references",
-    "references-outlined",
-    "search-user",
-    "search-user-outlined",
-    "esclerosis-multiple",
-    "esclerosis-multiple-outlined",
-    "ordination",
-    "view-line",
-    "view-line-outlined",
-    "health-program",
-    "health-program-outlined",
-    "close",
-    "reload",
-    "clinical-procedure",
-    "clinical-procedure-outlined",
-    "correct",
-    "resources",
-    "resources-outlined",
-    "search",
-    "calendar",
-    "calendar-outlined",
-    "unchecked",
-    "unchecked-outlined",
-    "vacancies",
-    "view-bar-chart",
-    "view-bar-chart-outlined",
-    "view-3-column-chart",
-    "view-3-column-chart-outlined",
-    "start",
-    "custom-components",
-    "components",
-    "customizations",
-    "icons",
-    "wireframes",
-    "migration",
-    "accessibility",
-    "ticket-icon",
-    "trash-outlined",
-    "save",
-    "clear",
-    "clear-outlined",
-    "allergies-outlined",
-    "tnf-outlined",
-    "sgtd",
-    "precedents-outlined",
-    "ophthalmology-outlined",
-    "clinical-process-outlined",
-    "mcdt-management-outlined",
-    "bed-management-outlined",
-    "social-services-outlined",
-    "emergency-outlined",
-    "very-urgent-outlined",
-    "urgent-outlined",
-    "little-urgent-outlined",
-    "not-urgent-outlined",
-    "viewed-outlined",
-    "graphic-outlined",
-    "euro",
-    "remove-outlined",
-    "lactose-free-yogurt",
-    "lactose-free-milk",
-    "vegetables-soup",
-    "breakfast",
-    "snack",
-    "lunch",
-    "dinner",
-    "supper",
-    "diet",
-    "meat-dish",
-    "fruit",
-    "meal",
-    "suplements",
-    "fish-soup",
-    "gelatin",
-    "bread",
-    "oat-meal",
-    "chicken-soup",
-    "kits",
-    "diet-parameters",
-    "lactose-free",
-    "gluten-free",
-    "hyperenergetic",
-    "salt-free",
-    "sugar-free",
-    "low-microbial-content",
-    "potassium-restricted",
-    "phosphorus-restricted",
-    "scullery",
-    "automatic-cancellation",
-    "bpm",
-    "mmhg",
-    "degrees",
-    "rpm",
-    "sp02",
-    "cereals",
-    "cereals-colors",
-    "crustaceans",
-    "crustaceans-colors",
-    "eggs",
-    "eggs-colors",
-    "fish",
-    "fish-colors",
-    "peanuts",
-    "peanuts-colors",
-    "soy",
-    "soy-colors",
-    "milk",
-    "milk-colors",
-    "sesame-seeds",
-    "sesame-seeds-colors",
-    "celery",
-    "celery-colors",
-    "mustard",
-    "mustard-colors",
-    "strawberry",
-    "strawberry-colors",
-    "sulfur-dioxide",
-    "sulfur-dioxide-colors",
-    "lupins",
-    "lupins-colors",
-    "molluscs",
-    "molluscs-colors",
-    "nuts",
-    "nuts-colors",
-    "hypoproteic",
-    "low-energy-diet",
-    "low-fiber-diet",
-    "video-on-circle",
-    "video-off-circle",
-    "sound-on-circle",
-    "sound-off-circle",
-    "microphone-on-circle",
-    "microphone-off-circle",
-    "chat-on-circle",
-    "chat-off-circle",
-  ] */
+  
+  useEffect(() => {
+    setVisibleIconsList(iconsList)
+  }, [])
 
   async function openModal(item: string) {
     if (
@@ -1009,14 +77,20 @@ export const Icons: React.FC = () => {
   }
 
   function handleFilter(event: string) {
-    const filteredList = iconsList.filter(item => {
-      const tagsEmUpperCase = item.tags.map(tag => tag.toUpperCase());
-      const stringProcuradaEmUpperCase = event.toUpperCase();
+    if (event !== '') {
+      const filteredList = iconsList.filter(item => {
+        const tagsEmUpperCase = item.tags.map(tag => tag.toUpperCase());
+        const stringProcuradaEmUpperCase = event.toUpperCase();
+  
+        return tagsEmUpperCase.some(tag => tag.includes(stringProcuradaEmUpperCase)); 
+      })
 
-      return tagsEmUpperCase.some(tag => tag.includes(stringProcuradaEmUpperCase));
-    })
-
-    setVisibleIconsList(filteredList)
+      setIsFiltered(true)
+      setVisibleIconsList(filteredList)
+    } else {
+      setIsFiltered(false)
+      setVisibleIconsList(iconsList)
+    }
   }
 
   return (
@@ -1026,7 +100,7 @@ export const Icons: React.FC = () => {
         <input type="text" className='input' onChange={(event) => handleFilter(event.target.value)} />
       </div>
 
-      <div className="grid_container">
+      {isFiltered && <div className="grid_container">
         {visibleIconsList.map(item => (
           <div className="grid_content" key={item.name}>
             <button
@@ -1044,7 +118,275 @@ export const Icons: React.FC = () => {
             <span>{item.name}</span>
           </div>
         ))}
-      </div>
+      </div>}
+
+      {!isFiltered && (
+        <>
+          <div className="subtitle">
+            <h2>Principais</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "main" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Ações básicas e estados</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "basic-actions" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Ações menos prioritárias</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "low-priority-actions" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Setas</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "arrows" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Media</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "media" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Documentos</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "documents" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Emojis</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "emojis" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Alimentação</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "foods" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Saúde</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "health" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>Random</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "random" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="subtitle">
+            <h2>SClínico</h2>
+          </div>
+
+          <div className="grid_container category">
+            {visibleIconsList.map(item => item.category === "sclinico" && (
+              <div className="grid_content" key={item.name}>
+                <button
+                  type="button"
+                  className="icon"
+                  onClick={() => openModal(item.name)}
+                >
+                  <SPMSIcon
+                    fontIcon={item.name}
+                    color="primary"
+                    size="large"
+                    secondColor="#CCEBF5"
+                  />
+                </button>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <div
         className={
