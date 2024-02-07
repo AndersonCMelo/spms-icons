@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@spms/react-icons": "file:spms-react-icons-0.2.3.tgz",
+    "@spms/react-icons": "file:spms-react-icons-0.2.4.tgz",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
