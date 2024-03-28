@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background: #FFF;
+  background: #fff;
 }
 
 .input_field {
@@ -13,7 +13,7 @@
   width: 100%;
   flex: 1;
   border-radius: 8px;
-  border: 1px solid #0099cc;
+  border: 1px solid #008285;
   margin-bottom: 20px;
   padding-left: 10px;
 }
@@ -38,7 +38,7 @@
 }
 
 .category {
-  border: 1px solid #0099CC;
+  border: 1px solid #008285;
   margin-bottom: 20px;
   padding: 20px 10px;
   border-radius: 0 6px 6px 6px;
@@ -60,14 +60,14 @@
 h2 {
   font-size: 26px;
   font-weight: bold;
-  color: #FFF;
+  color: #fff;
   padding: 0;
   margin: 0;
 }
 
 .subtitle {
   display: inline-block;
-  background-color: #0099CC;
+  background-color: #008285;
   padding: 10px 20px;
   border-radius: 6px 6px 0 0;
 }
@@ -87,7 +87,7 @@ button.icon {
 }
 
 button.icon:hover {
-  background: #F4F8F9;
+  background: #f4f8f9;
 }
 
 button.icon:focus {
@@ -120,7 +120,7 @@ button.icon:focus {
 .modal_content {
   width: 600px;
   margin-top: 40px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 6px;
 }
 
@@ -137,8 +137,8 @@ button.icon:focus {
 
 .modal_content .code {
   padding: 20px;
-  background: #001E3C;
-  color:#FFFFFF;
+  background: #001e3c;
+  color: #ffffff;
   font-size: 14px;
 
   display: flex;
@@ -201,7 +201,7 @@ button.icon:focus {
 .modal_content .content button {
   background: transparent;
   border: none;
-  color: #0099CC;
+  color: #008285;
   margin-left: auto;
   text-transform: uppercase;
   font-weight: bold;

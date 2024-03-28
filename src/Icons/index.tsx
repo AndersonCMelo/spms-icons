@@ -11,8 +11,6 @@ interface IconsListProps {
   tags: string[]
 }
 
-// import { Container } from './styles';
-
 export const Icons: React.FC = () => {
   const [modalIsOpened, setModalIsOpened] = useState(false)
   const [isFiltered, setIsFiltered] = useState(false)
