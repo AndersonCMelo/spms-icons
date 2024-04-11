@@ -17,7 +17,7 @@ export const Icons: React.FC = () => {
   
   const [visibleIconsList, setVisibleIconsList] = useState<IconsListProps[]>([])
 
-  const [selectedIcon, setSelectedIcon] = useState('user')
+  const [selectedIcon, setSelectedIcon] = useState('')
   const [selectedIconCodeAngular, setSelectedIconCodeAngular] = useState('')
   const [selectedIconCodeReact, setSelectedIconCodeReact] = useState('')
   
